@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruby Serisi Detay | Ozlvcraft</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <header class="navbar navbar-solid">
+    <a href="index.html" class="logo">Ozlvcraft</a>
+    <nav class="nav-links">
+      <a href="index.html#seriler">Seriler</a>
+      <a href="urunlerımız.html">Ürünlerimiz</a>
+      <a href="index.html#felsefe">Hikayemiz</a>
+      <a href="#iletisim" class="nav-cta">Sipariş Kanalları</a>
+    </nav>
+  </header>
+
+  <main class="variant-product-page">
+    <div class="variant-container">
+      <div class="main-image-box">
+        <img id="main-product-img" src="images/ruby1.jpg" alt="Ruby Serisi">
+      </div>
+
+      <div class="thumbnail-row">
+        <img id="thumb-1" src="images/ruby1.jpg" class="thumb active" onclick="changeMainImage(this.src)" alt="Ön Görünüm">
+        <img id="thumb-2" src="images/ruby2.jpg" class="thumb" onclick="changeMainImage(this.src)" alt="Burs Detayı">
+        <img id="thumb-3" src="images/ruby3.jpg" class="thumb" onclick="changeMainImage(this.src)" alt="Askı Detayı">
+      </div>
+
+      <div class="product-details-box">
+        <span class="series-tag">Trend Seri</span>
+        <h1 class="product-title">Ruby Serisi</h1>
+        <div class="color-title">
+          Renk: <strong id="selected-color-name">Bordo</strong>
+        </div>
+
+        <div class="color-options-grid">
+          <button class="color-btn active" 
+                  style="background-color: #6B1D2F;" 
+                  data-color="Lacivert" 
+                  onclick="selectColor(this)"></button>
+        </div>
+
+        <div class="specs-list">
+          <div class="spec-row"><span>En-Boy-Yükseklik:</span> <strong>8 x 25 x 15 cm (Askı Dahil Yükseklik: 39 cm)</strong></div>
+          <div class="spec-row"><span>Askı Detayı:</span> <strong>51 cm Uzun Askı (Esneme paylı)</strong></div>
+          <div class="spec-row"><span>Aksesuar:</span> <strong>Gold Görünümlü Yaylı Metal Klips</strong></div>
+          <div class="spec-row"><span>Materyal:</span> <strong>İp: %90 Pamuk  %10 Polyester / Tüylü ip: %100 Soft Polyester</strong></div>
+        </div>
+
+        <div class="shop-channels">
+          <span class="channel-title">Satın Alma Platformları</span>
+          <div class="btn-group">
+            <a id="buy-btn" href="https://www.shopier.com/ozlvcraft" target="_blank" class="btn-pill shopier">Shopier İle Satın Al</a>
+            <a href="https://link.dolap.com/bu2cdu" target="_blank" class="btn-pill dolap">Dolap'ta İncele</a>
+            <a href="http://gardrops.com/ozlcraft" target="_blank" class="btn-pill gardrops">Gardrops</a>
+            <a href="https://www.instagram.com/ozlvcraft/" target="_blank" target="_blank" class="btn-pill ig">Instagram DM Sipariş</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="iletisim" class="site-footer">
+    <div class="footer-inner">
+      <h2>ozlvcraft</h2>
+      <p>Sipariş ve özel tasarım talepleriniz için bize ulaşın.</p>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/ozlvcraft/" target="_blank">Instagram (@ozlvcraft)</a>
+        <a href="https://www.shopier.com/ozlvcraft" target="_blank">Shopier</a>
+        <a href="https://link.dolap.com/bu2cdu" target="_blank">Dolap</a>
+        <a href="http://gardrops.com/ozlcraft" target="_blank">Gardrops</a>
+      </div>
+      <span class="copy">© ozlvcraft. Tüm hakları saklıdır.</span>
+    </div>
+  </footer>
+
+  <script>
+    const colorData = {
+  "Bordo": {
+    name: "Bordo",
+    shopier: "https://www.shopier.com/ozlvcraft",
+    images: [
+      "images/ruby1.jpg",
+      "images/ruby2.jpg",
+      "images/ruby3.jpg"
+    ]
+  }
+};
+
+    function selectColor(btnElement) {
+      const colorKey = btnElement.getAttribute("data-color");
+      const selectedData = colorData[colorKey];
+      if (!selectedData) return;
+      document.getElementById("selected-color-name").innerText = selectedData.name;
+      const buyBtn = document.getElementById("buy-btn");
+      if (buyBtn && selectedData.shopier) {
+        buyBtn.href = selectedData.shopier;
+      }
+
+      const mainImg = document.getElementById("main-product-img");
+      mainImg.src = selectedData.images[0];
+      const thumb1 = document.getElementById("thumb-1");
+      const thumb2 = document.getElementById("thumb-2");
+      const thumb3 = document.getElementById("thumb-3");
+      thumb1.src = selectedData.images[0];
+      thumb2.src = selectedData.images[1];
+      thumb3.src = selectedData.images[2];
+      document.querySelectorAll(".color-btn").forEach(btn => btn.classList.remove("active"));
+      btnElement.classList.add("active");
+      document.querySelectorAll(".thumb").forEach(thumb => thumb.classList.remove("active"));
+      thumb1.classList.add("active");
+    }
+
+    function changeMainImage(newSrc) {
+      document.getElementById("main-product-img").src = newSrc;
+      document.querySelectorAll(".thumb").forEach(thumb => {
+        thumb.classList.toggle("active", thumb.src.includes(newSrc));
+      });
+    }
+  </script>
+
+</body>
+</html>
